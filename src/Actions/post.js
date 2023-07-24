@@ -1,11 +1,12 @@
 import axios from "axios";
+const BaseUrl = "https://social-media-backend-pearl.vercel.app";
 
 export const likePost = (id) => async (dispatch) => {
   try {
     dispatch({
       type: "LikesRequest",
     });
-    const { data } = await axios.get(`/api/v1/post/${id}`);
+    const { data } = await axios.get(`${BaseUrl}/api/v1/post/${id}`);
 
     dispatch({
       type: "LikesSuccess",
@@ -30,7 +31,7 @@ export const commentPost = (id, comment) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `/api/v1/post/comment/${id}`,
+      `${BaseUrl}/api/v1/post/comment/${id}`,
       { comment },
       config
     );
@@ -52,7 +53,7 @@ export const commentDelete = (id, commentId) => async (dispatch) => {
       type: "CommentDeleteRequest",
     });
     const { data } = await axios.delete(
-      `/api/v1/post/comment/${id}`,
+      `${BaseUrl}/api/v1/post/comment/${id}`,
       {
         data: { commentId },
       },
@@ -81,7 +82,7 @@ export const createnewPost = (caption, image) => async (dispatch) => {
       type: "newPostRequest",
     });
     const { data } = await axios.post(
-      `/api/v1/post/upload`,
+      `${BaseUrl}/api/v1/post/upload`,
       {
         caption,
         image,
@@ -112,7 +113,7 @@ export const updateCaption = (id, caption) => async (dispatch) => {
     });
 
     const { data } = await axios.put(
-      `/api/v1/post/${id}`,
+      `${BaseUrl}/api/v1/post/${id}`,
       { caption },
       {
         headers: {
@@ -138,7 +139,7 @@ export const deletePost = (id) => async (dispatch) => {
       type: "deletePostRequest",
     });
 
-    const { data } = await axios.delete(`/api/v1/post/${id}`);
+    const { data } = await axios.delete(`${BaseUrl}/api/v1/post/${id}`);
     dispatch({
       type: "deletePostSuccess",
       payload: data.message,
