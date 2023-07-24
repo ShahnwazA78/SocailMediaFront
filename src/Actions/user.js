@@ -13,6 +13,7 @@ export const loginUser = (email, password) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
     dispatch({
@@ -32,7 +33,10 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: "LoadUserRequest",
     });
-    const { data } = await axios.get(`${BaseUrl}/api/v1/me`);
+    const { data } = await axios.get(`${BaseUrl}/api/v1/me`, {
+      withCredentials: true, // Include cookies with the request
+    });
+
     dispatch({
       type: "LoadUserSuccess",
       payload: data.user,
